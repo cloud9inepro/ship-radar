@@ -11,7 +11,7 @@ export const useResponsiveCamera = () => {
 
   return {
     isMobile,
-    cameraZ: isMobile ? 3.8 : 3,       // pull back on mobile so globe fits
+    cameraZ: isMobile ? 4.4 : 3,       // pull back on mobile so globe fits
     minDistance: isMobile ? 2.5 : 1.5,  // cant zoom in as close on mobile
     maxDistance: isMobile ? 6 : 4,      // can zoom out further on mobile
   }

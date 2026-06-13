@@ -10,7 +10,6 @@ const Globe = () => {
   const { camera } = useThree()
   const { cameraZ, minDistance, maxDistance } = useResponsiveCamera()
 
-  // adjust camera position when screen size changes
   useEffect(() => {
     camera.position.set(0, 0, cameraZ)
   }, [cameraZ, camera])
@@ -18,13 +17,13 @@ const Globe = () => {
   return (
     <>
       <OrbitControls
+        makeDefault
         enablePan={false}
         minDistance={minDistance}
         maxDistance={maxDistance}
-        enableDamping                // smooth inertia on drag
+        enableDamping
         dampingFactor={0.05}
       />
-
       <mesh ref={meshRef}>
         <sphereGeometry args={[1, 64, 64]} />
         <meshStandardMaterial map={earthTexture} />
