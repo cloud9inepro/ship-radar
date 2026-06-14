@@ -79,18 +79,19 @@ const App = () => {
 
           {/* Panel toggle */}
           <button
-            onClick={() => setIsPanelOpen(prev => !prev)}
-            style={{ left: isPanelOpen ? '16rem' : '0' }}
-            className="
-              absolute z-20 top-1/2 -translate-y-1/2
-              w-5 h-12 rounded-r-full
-              bg-[#0a0c10]/90 border border-l-0 border-white/10
-              flex items-center justify-center text-white/40
-              hover:text-white transition-all duration-500
-            "
-          >
-            {isPanelOpen ? <ChevronLeft size={12} /> : <ChevronRight size={12} />}
-          </button>
+  onClick={() => setIsPanelOpen(prev => !prev)}
+  style={{ left: isPanelOpen ? '16rem' : '0' }}
+  className="
+    absolute z-20 top-1/2 -translate-y-1/2
+    w-6 h-14 rounded-r-full
+    bg-white/15 border border-l-0 border-white/40
+    flex items-center justify-center text-white
+    hover:bg-white/25 transition-all duration-500
+    backdrop-blur-sm
+  "
+>
+  {isPanelOpen ? <ChevronLeft size={12} /> : <ChevronRight size={12} />}
+</button>
         </>
       )}
 

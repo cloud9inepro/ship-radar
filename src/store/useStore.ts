@@ -1,5 +1,8 @@
 import { create } from 'zustand'
 
+
+
+
 export type ShipType = 'cargo' | 'tanker' | 'passenger' | 'fishing' | 'military' | 'generic'
 export type ViewMode = 'globe' | 'ocean'
 
