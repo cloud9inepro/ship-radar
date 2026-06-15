@@ -8,8 +8,10 @@ import ShipList from './components/ui/ShipList'
 import { useStore } from './store/useStore'
 import OceanHUD from './components/ui/OceanHUD'
 import { Loader } from '@react-three/drei'
+import { useAIS } from './hooks/useAIS'
 
 const App = () => {
+  useAIS()
   const [isPanelOpen, setIsPanelOpen] = useState(true)
 
   const viewMode         = useStore(state => state.viewMode)

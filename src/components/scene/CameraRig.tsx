@@ -63,9 +63,9 @@ const CameraRig = () => {
             phase.current = 'entering-ocean'
             setViewMode('ocean')
 
-            camera.position.set(-2.8, 1, oceanCameraZ)
+            camera.position.set(0, 5, oceanCameraZ)
 camera.lookAt(0, 0, 0)
-;(camera as THREE.PerspectiveCamera).fov = 65
+;(camera as THREE.PerspectiveCamera).fov = 60
 ;(camera as THREE.PerspectiveCamera).updateProjectionMatrix()
 
             // reveal ocean quickly

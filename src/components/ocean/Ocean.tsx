@@ -3,7 +3,8 @@ import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import { Water } from 'three/examples/jsm/objects/Water.js'
 
-const sunDirection = new THREE.Vector3(1, 1, 0.5).normalize()
+// A slightly lower sun angle helps create stronger glittering highlights across the waves
+const sunDirection = new THREE.Vector3(2, 1, 1).normalize()
 
 const Ocean = () => {
   const waterRef = useRef<Water | null>(null)
@@ -16,18 +17,17 @@ const Ocean = () => {
     })
 
     const w = new Water(geometry, {
-  textureWidth: 512,
-  textureHeight: 512,
-  waterNormals,
-  sunDirection,
-  sunColor:        0xffffff,
-  waterColor:      0x3a5060,
-  distortionScale: 0.3,
-  alpha:           0.5,
-  fog:             true,
-})
+      textureWidth: 512,
+      textureHeight: 512,
+      waterNormals,
+      sunDirection,
+      // 1. PROPER OCEAN COLOR TUNING
+      sunColor:        new THREE.Color('#ffffff'), // Warm, bright sunlight highlight
+      waterColor:      new THREE.Color('#004b75'), // Deep, rich blue-teal for depth
+      distortionScale: 2.0,                        // Increased for more realistic wave distortion
+      alpha:           0.8,                        // Allows sunlight to scatter into the surface properly
+    })
 
-    // apply sun direction to the shader uniforms directly
     w.material.uniforms['sunDirection'].value.copy(sunDirection)
 
     return w
@@ -35,7 +35,16 @@ const Ocean = () => {
 
   useFrame((_, delta) => {
     if (water.material.uniforms['time']) {
-      water.material.uniforms['time'].value += delta * 0.1
+      water.material.uniforms['time'].value += delta * 0.5 // Speed up time for realistic wave movement
+    }
+
+    // Scroll water normals in +X — ship faces -X so ocean appears to flow past
+    const normalSampler = water.material.uniforms['normalSampler']
+    if (normalSampler?.value) {
+      // Use offset on the texture matrix rather than directly on the sampler object
+      water.material.uniforms['textureMatrix'].value.multiply(
+        new THREE.Matrix4().makeTranslation(delta * 0.05, 0, 0)
+      )
     }
   })
 

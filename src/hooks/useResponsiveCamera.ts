@@ -25,5 +25,8 @@ export const useResponsiveCamera = () => {
     oceanCameraZ: isMobile ? 3 : isTablet ? 4.5 : 6,
     // model scale multiplier — larger on mobile to stay prominent
     scaleMultiplier: isMobile ? 1.4 : isTablet ? 1.1 : 1.0,
+
+  maxGlobeShips:  isMobile ? 20 : isTablet ? 40 : 50,
+  maxGlobeLabels: isMobile ? 10  : isTablet ? 15 : 20,
   }
 }

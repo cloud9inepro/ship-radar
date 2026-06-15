@@ -9,6 +9,7 @@ import ShipGroup from '../ocean/ShipGroup'
 import { EffectComposer, ChromaticAberration, Vignette, Bloom } from '@react-three/postprocessing'
 import { BlendFunction } from 'postprocessing'
 import { Vector2 } from 'three'
+import { Environment, Preload } from '@react-three/drei'
 
 const SceneManager = () => {
   const viewMode        = useStore(state => state.viewMode)
@@ -16,16 +17,35 @@ const SceneManager = () => {
 
   return (
     <>
-      {viewMode === 'ocean' && (
+      {/* {viewMode === 'ocean' && (
         <>
-          <color attach="background" args={['#6e7e8a']} />
+          <color attach="background" args={['#0a1628']} />
           <fog attach="fog" args={['#7a8e9a', 1, 15]} />
         </>
-      )}
+      )} */}
 
-      <ambientLight intensity={1.5} />
-      <directionalLight position={[10, 10, 5]}  intensity={3}   color="#ffffff" />
-      <directionalLight position={[-5, 8, -5]}  intensity={1.5} color="#aac4d0" />
+      {viewMode === 'globe' && (
+  <>
+    <ambientLight intensity={1.5} />
+    <directionalLight position={[10, 10, 5]}  intensity={3}   color="#ffffff" />
+    <directionalLight position={[-5, 8, -5]}  intensity={1.5} color="#aac4d0" />
+  </>
+)}
+
+{viewMode === 'ocean' && (
+  <>
+    <color attach="background" args={['#0a192f']} />
+    {/* <fog attach="fog" args={['#7a8e9a', 1, 15]} /> */}
+    <hemisphereLight 
+      args={['#4fa9ff', '#001122', 0.6]} // [Sky Color (Bright Blue), Ground Color (Deep Dark Blue), Intensity]
+    />
+    <directionalLight position={[5, 10, 3]}  intensity={3}   color="#ffffff" />
+    <directionalLight position={[-3, 8, -2]} intensity={1.5} color="#ddeeff" />
+    <Environment files="/puresky.hdr" environmentIntensity={0.1}/>
+    <Preload all/>
+  </>
+)}
+
 
       <CameraRig />
 
