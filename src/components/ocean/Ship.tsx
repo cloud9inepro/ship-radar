@@ -30,4 +30,4 @@ const Ship = () => {
   )
 }
 
-export default Ship
+export { default } from './ShipModel'

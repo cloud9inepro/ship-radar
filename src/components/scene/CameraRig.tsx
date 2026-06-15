@@ -4,6 +4,8 @@ import gsap from 'gsap'
 import * as THREE from 'three'
 import { useStore } from '../../store/useStore'
 import type { OrbitControls } from 'three-stdlib'
+import { useResponsiveCamera } from '../../hooks/useResponsiveCamera'
+
 
 type AnimPhase = 'idle' | 'rotating' | 'zooming' | 'entering-ocean'
 
@@ -20,6 +22,7 @@ const CameraRig = () => {
   const isAnimating   = useRef(false)
   const phase         = useRef<AnimPhase>('idle')
   const fadeTriggered = useRef(false)
+  const { oceanCameraZ } = useResponsiveCamera()
 
   useEffect(() => {
     if (!activeShip || viewMode !== 'globe') return
@@ -60,9 +63,9 @@ const CameraRig = () => {
             phase.current = 'entering-ocean'
             setViewMode('ocean')
 
-            camera.position.set(-2.8, 0.35, 1.2)
-camera.lookAt(0, 0.05, 0)
-;(camera as THREE.PerspectiveCamera).fov = 62
+            camera.position.set(-2.8, 1, oceanCameraZ)
+camera.lookAt(0, 0, 0)
+;(camera as THREE.PerspectiveCamera).fov = 65
 ;(camera as THREE.PerspectiveCamera).updateProjectionMatrix()
 
             // reveal ocean quickly

@@ -118,6 +118,7 @@ const setActiveShip = useStore(state => state.setActiveShip)
         gap:            '4px',
         whiteSpace:     'nowrap',
         backdropFilter: 'blur(4px)',
+        zIndex:          '5',
       }}>
         <span style={{ fontSize: '9px' }}>
           {FLAG_MAP[ship.flag] ?? '🚢'}

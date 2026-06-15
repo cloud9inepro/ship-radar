@@ -7,6 +7,7 @@ import ShipCard from './components/ui/ShipCard'
 import ShipList from './components/ui/ShipList'
 import { useStore } from './store/useStore'
 import OceanHUD from './components/ui/OceanHUD'
+import { Loader } from '@react-three/drei'
 
 const App = () => {
   const [isPanelOpen, setIsPanelOpen] = useState(true)
@@ -40,7 +41,13 @@ const App = () => {
             <SceneManager />
           </Suspense>
         </Canvas>
+        <Loader
+          barStyles={{ backgroundColor: '#ff0055' }}
+          innerStyles={{ width: '300px' }}
+        />
       </div>
+      
+      
 
       {/* Cinematic transition overlay */}
 <div className={`
@@ -72,6 +79,7 @@ const App = () => {
                 Vessel Tracker
               </h1>
             </div>
+            
             <SearchBar />
             <ShipCard />
             <ShipList />

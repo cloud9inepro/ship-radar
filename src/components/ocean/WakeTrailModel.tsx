@@ -35,6 +35,7 @@ export function WakeTrailModel(props: JSX.IntrinsicElements['group']) {
     if (!action) return
     action.reset().play()
     action.setLoop(THREE.LoopRepeat, Infinity)
+    action.timeScale = 0.2
   }, [actions])
 
   return (

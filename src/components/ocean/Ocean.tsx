@@ -9,7 +9,7 @@ const Ocean = () => {
   const waterRef = useRef<Water | null>(null)
 
   const water = useMemo(() => {
-    const geometry = new THREE.PlaneGeometry(20, 20, 64, 64)
+    const geometry = new THREE.PlaneGeometry(100, 100, 64, 64)
 
     const waterNormals = new THREE.TextureLoader().load('/waternormals.jpg', (tex) => {
       tex.wrapS = tex.wrapT = THREE.RepeatWrapping
@@ -22,7 +22,8 @@ const Ocean = () => {
   sunDirection,
   sunColor:        0xffffff,
   waterColor:      0x3a5060,
-  distortionScale: 1.0,
+  distortionScale: 0.3,
+  alpha:           0.5,
   fog:             true,
 })
 
@@ -34,7 +35,7 @@ const Ocean = () => {
 
   useFrame((_, delta) => {
     if (water.material.uniforms['time']) {
-      water.material.uniforms['time'].value += delta * 0.5
+      water.material.uniforms['time'].value += delta * 0.1
     }
   })
 

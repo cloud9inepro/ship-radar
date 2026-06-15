@@ -19,7 +19,7 @@ const SceneManager = () => {
       {viewMode === 'ocean' && (
         <>
           <color attach="background" args={['#6e7e8a']} />
-          <fog attach="fog" args={['#7a8e9a', 4, 18]} />
+          <fog attach="fog" args={['#7a8e9a', 1, 15]} />
         </>
       )}
 
