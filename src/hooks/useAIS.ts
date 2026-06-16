@@ -99,19 +99,36 @@ ws.onmessage = async (event) => {
 
     // batch push to store every 5s so we don't re-render on every message
  const interval = setInterval(() => {
-  const ships = Array.from(shipMap.current.values())
-  .filter(s => s.lat !== 0 && s.lng !== 0 && s.name && s.speed > 0)
-  .slice(0, MAX_STORE_SHIPS)
+  const allShips = Array.from(shipMap.current.values())
+    .filter(s => s.lat !== 0 && s.lng !== 0 && s.name && s.speed > 0)
 
-if (ships.length > 0) {
-  setShipList(ships.slice(0, MAX_STORE_SHIPS)) // 500 in store for search
-}
-
-  console.log(`AIS: ${shipMap.current.size} ships in map, ${ships.length} valid`) // ← add this
-
-  if (ships.length > 0) {
-    setShipList(ships)
+  // bucket ships by type
+  const byType: Record<string, typeof allShips> = {
+    cargo:     allShips.filter(s => s.type === 'cargo'),
+    tanker:    allShips.filter(s => s.type === 'tanker'),
+    passenger: allShips.filter(s => s.type === 'passenger'),
+    fishing:   allShips.filter(s => s.type === 'fishing'),
+    military:  allShips.filter(s => s.type === 'military'),
+    generic:   allShips.filter(s => s.type === 'generic'),
   }
+
+  // take a balanced slice from each type
+  const balanced = [
+    ...byType.cargo.slice(0, 120),
+    ...byType.tanker.slice(0, 120),
+    ...byType.passenger.slice(0, 60),
+    ...byType.fishing.slice(0, 80),
+    ...byType.military.slice(0, 30),
+    ...byType.generic.slice(0, 90),
+  ]
+
+  console.log(
+    `Ships by type — cargo: ${byType.cargo.length}, tanker: ${byType.tanker.length}, ` +
+    `passenger: ${byType.passenger.length}, fishing: ${byType.fishing.length}, ` +
+    `military: ${byType.military.length}, generic: ${byType.generic.length}`
+  )
+
+  if (balanced.length > 0) setShipList(balanced)
 }, STORE_UPDATE_INTERVAL)
 
     return () => {

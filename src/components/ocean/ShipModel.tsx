@@ -32,14 +32,14 @@ const MODEL_CONFIG: Record<'cargo' | 'tanker' | 'fishing' | 'passenger' | 'milit
     rotation: [0, Math.PI / 1, 0] as [number, number, number],
   },
   tanker:    { 
-    scale: 0.03,  mobileScale: 0.05,  tabletScale: 0.04,
-       position: [0, 0, 0], mobilePosition: [0, 0, 0], tabletPosition: [0, 0, 0], 
-    rotation: [0, Math.PI / 0.1, 0] as [number, number, number],
+    scale: 0.04,  mobileScale: 0.02,  tabletScale: 0.03,
+       position: [2, 0, -0.2], mobilePosition: [0.7, 0, -0.1], tabletPosition: [1, 0, -0.1], 
+    rotation: [0, -Math.PI / 2, 0] as [number, number, number],
   },
   fishing:   { 
-    scale: 0.7,   mobileScale: 0.45,  tabletScale: 0.58,
-    position: [-1, -0.1, 0],
-    rotation: [0, Math.PI / 0.56, 0] as [number, number, number],
+    scale: 1.5,   mobileScale: 0.7,  tabletScale: 0.88,
+    position: [1.6, 0, 0], mobilePosition: [0, 0.1, 0], tabletPosition: [0.3, 0, 0],
+    rotation: [0, 34, 0] as [number, number, number],
   },
   passenger: { 
     scale: 3,     mobileScale: 1.2,   tabletScale: 1.8,
